@@ -1,13 +1,13 @@
 package tictactoe
 
 import tictactoe.Game.Companion.PLAYER1
-import tictactoe.Game.Companion.PLAYER2
+import tictactoe.Game.Companion.PLAYER_IA
 import tictactoe.Game.Companion.board
 import java.lang.StrictMath.max
 import java.lang.StrictMath.min
 
 
-open class AI(val row: Int, val column: Int, val score: Int) {
+open class AI {
     companion object {
         var alpha = Int.MIN_VALUE
         var beta = Int.MAX_VALUE
@@ -29,14 +29,14 @@ open class AI(val row: Int, val column: Int, val score: Int) {
             )
             if (depth == 0) return mapOf("score" to 0, "move" to mapOf("row" to -1, "column" to -1))
 
-            if (player == PLAYER1) { //PLAYER1 = "X", PLAYER2 = "O"
+            if (player == PLAYER_IA) { //PLAYER1 = "X", PLAYER2 = "O"
                 var bestScore = Int.MIN_VALUE
                 var bestMove = mapOf("row" to -1, "column" to -1)
                 for (i in 0 until board.gameSize) {
                     for (j in 0 until board.gameSize) {
                         if (board.board[i][j] == board.empty) {
                             board.board[i][j] = PLAYER1
-                            val score = protocoloOmega(depth - 1, PLAYER2, alpha, beta, i, j)["score"] as Int
+                            val score = protocoloOmega(3, PLAYER_IA, alpha, beta, i, j)["score"] as Int
                             board.board[i][j] = board.empty
                             bestScore = score
                             bestMove = mapOf("row" to i, "column" to j)
@@ -53,8 +53,8 @@ open class AI(val row: Int, val column: Int, val score: Int) {
                 for (i in 0 until board.gameSize) {
                     for (j in 0 until board.gameSize) {
                         if (board.board[i][j] == board.empty) {
-                            board.board[i][j] = PLAYER2
-                            val score = protocoloOmega(depth - 1, PLAYER2, alpha, beta, i, j)["score"] as Int
+                            board.board[i][j] = PLAYER_IA
+                            val score = protocoloOmega(depth - 1, PLAYER_IA, alpha, beta, i, j)["score"] as Int
                             board.board[i][j] = board.empty
                             bestScore = score
                             bestMove = mapOf("row" to i, "column" to j)

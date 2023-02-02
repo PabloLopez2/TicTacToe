@@ -1,12 +1,13 @@
 package tictactoe
 
 import tictactoe.Game.Companion.currentPlayer
+import tictactoe.Game.Companion.currentPlayer1
 import kotlin.math.pow
 
 open class Board(val gameSize: Int) { //El valor de gameSize será 3
 
     val empty = Color.CYAN + "___" + Color.RESET// Dibuixa les caselles que seràn substituides per les peçes X i O
-    var moveCount = 0
+    private var moveCount = 0
     var isGameOver = false
     var board =
         Array(gameSize) { Array(gameSize) { empty } }// Una Array es una llista inmutable
@@ -29,6 +30,7 @@ open class Board(val gameSize: Int) { //El valor de gameSize será 3
         println()
     }
 
+    //HUMAN-HUMAN
     fun placePiece(row: Int, column: Int, move: String) {
         if (!isGameOver && isPositionValid(row, column) && board[row][column] == empty) {
             moveCount++
@@ -39,6 +41,43 @@ open class Board(val gameSize: Int) { //El valor de gameSize será 3
                 println(
                     " _________________________ \n" +
                             "< ¡Ha ganado el jugador: $currentPlayer!  >\n" +
+                            " ------------------------- \n" +
+                            "        \\   ^__^\n" +
+                            "         \\  (oo)\\_______\n" +
+                            "            (__)\\       )\\/ \\\n" +
+                            "                ||----w |\n" +
+                            "                ||     ||"
+                )
+            } else if (draw()) {
+                println(
+                    "_____________\n" +
+                            "< ¡Empate!  >\n" +
+                            " ------------\n" +
+                            "   \\\n" +
+                            "    \\\n" +
+                            "        .--.\n" +
+                            "       |o_o |\n" +
+                            "       |:_/ |\n" +
+                            "      //   \\ \\\n" +
+                            "     (|     | )\n" +
+                            "    /'\\_   _/`\\\n" +
+                            "    \\___)=(___/"
+                )
+            }
+        }
+    }
+
+    //HUMAN-IA
+    fun placePieceIA(row1: Int, column1: Int, move1: String) {
+        if (!isGameOver && isPositionValid(row1, column1) && board[row1][column1] == empty) {
+            moveCount++
+            board[row1][column1] = move1
+            printBoard()
+            isGameOver = isWinningMove(row1, column1, move1) || draw()
+            if (isGameOver && !draw()) {
+                println(
+                    " _________________________ \n" +
+                            "< ¡Ha ganado el jugador: $currentPlayer1!  >\n" +
                             " ------------------------- \n" +
                             "        \\   ^__^\n" +
                             "         \\  (oo)\\_______\n" +
@@ -112,7 +151,6 @@ open class Board(val gameSize: Int) { //El valor de gameSize será 3
         }
         return false
     }
-
    open fun draw(): Boolean {
         return (moveCount == (gameSize.toDouble().pow(2) - 1).toInt())
     }
@@ -121,7 +159,4 @@ open class Board(val gameSize: Int) { //El valor de gameSize será 3
         isGameOver = false
         moveCount = 0
     }
-
-
-
 }

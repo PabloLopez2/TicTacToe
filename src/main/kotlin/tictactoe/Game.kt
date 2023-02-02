@@ -1,7 +1,6 @@
 package tictactoe
 
 open class Game {
-
     companion object {
         //HUMAN-HUMAN
         var board = Board(0)

@@ -54,7 +54,7 @@ open class AI {
                     for (j in 0 until board.gameSize) {
                         if (board.board[i][j] == board.empty) {
                             board.board[i][j] = PLAYER_IA
-                            val score = protocoloOmega(depth - 1, PLAYER_IA, alpha, beta, i, j)["score"] as Int
+                            val score = protocoloOmega(3, PLAYER_IA, alpha, beta, i, j)["score"] as Int
                             board.board[i][j] = board.empty
                             bestScore = score
                             bestMove = mapOf("row" to i, "column" to j)

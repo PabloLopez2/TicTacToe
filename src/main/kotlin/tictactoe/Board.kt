@@ -6,7 +6,7 @@ import kotlin.math.pow
 
 open class Board(val gameSize: Int) { //El valor de gameSize será 3
 
-    val empty = Color.CYAN + "___" + Color.RESET// Dibuixa les caselles que seràn substituides per les peçes X i O
+    val empty = Color.CYAN + "___" + Color.RESET// Dibuja los espacios en blanco
     private var moveCount = 0
     var isGameOver = false
     var board =
